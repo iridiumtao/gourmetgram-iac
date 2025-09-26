@@ -10,6 +10,11 @@ variable "key" {
   default     = "id_rsa_chameleon"
 }
 
+variable "reservation" {
+  description = "UUID of the reserved flavor"
+  type        = string
+}
+
 variable "nodes" {
   type = map(string)
   default = {
