@@ -18,27 +18,14 @@ spec:
   # Workflow specification - this gets triggered on schedule
   workflowSpec:
     entrypoint: scheduled-training
-    arguments:
-      parameters:
-      - name: endpoint-ip
-        # This should be set to the training service IP in your cluster
-        # Example: gourmetgram-train.gourmetgram-platform.svc.cluster.local
-        value: "gourmetgram-train.gourmetgram-platform.svc.cluster.local"
 
     templates:
     - name: scheduled-training
       steps:
         - - name: trigger-train-workflow
             template: trigger-train
-            arguments:
-              parameters:
-              - name: endpoint-ip
-                value: "{{workflow.parameters.endpoint-ip}}"
 
     - name: trigger-train
-      inputs:
-        parameters:
-        - name: endpoint-ip
       resource:
         action: create
         manifest: |
@@ -49,7 +36,3 @@ spec:
           spec:
             workflowTemplateRef:
               name: train-model
-            arguments:
-              parameters:
-              - name: endpoint-ip
-                value: "{{inputs.parameters.endpoint-ip}}"
