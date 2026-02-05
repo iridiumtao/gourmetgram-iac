@@ -167,13 +167,13 @@ spec:
         PASS=true
 
         # Success rate must be > 95%
-        if [ "$(echo "$SUCCESS_RATE < 95" | bc -l)" -eq 1 ]; then
+        if awk "BEGIN {exit !($SUCCESS_RATE < 95)}"; then
           echo "❌ Load test FAILED: Success rate ${SUCCESS_RATE}% < 95%"
           PASS=false
         fi
 
         # P95 latency must be < 2000ms
-        if [ "$(echo "$P95_MS > 2000" | bc -l)" -eq 1 ]; then
+        if awk "BEGIN {exit !($P95_MS > 2000)}"; then
           echo "❌ Load test FAILED: P95 latency ${P95_MS}ms > 2000ms"
           PASS=false
         fi

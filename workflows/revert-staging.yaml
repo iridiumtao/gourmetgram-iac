@@ -97,7 +97,8 @@ spec:
             print("Cannot revert - this is the first version")
             exit(1)
 
-        print(f"Found previous staging version: {previous_version}")
+        import sys
+        print(f"Found previous staging version: {previous_version}", file=sys.stderr)
         print(previous_version)
         EOF
 
